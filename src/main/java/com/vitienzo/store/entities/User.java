@@ -1,12 +1,11 @@
 package com.vitienzo.store.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
 
-@Entity
+@Entity(name = "tb_user")
 public class User {
 
     @Id
@@ -17,8 +16,10 @@ public class User {
     private String phone;
     private String password;
 
-    public User() {
+    @OneToMany(mappedBy = "client")
+    private List<Order> orders = new ArrayList<>();
 
+    public User() {
     }
 
     public User(Long id, String name, String email, String phone, String password) {
@@ -67,6 +68,10 @@ public class User {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
     }
 
     @Override
