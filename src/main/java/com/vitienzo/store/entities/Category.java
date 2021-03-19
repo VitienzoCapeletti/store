@@ -1,10 +1,9 @@
 package com.vitienzo.store.entities;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import javax.persistence.*;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "tb_category")
 public class Category {
@@ -13,6 +12,9 @@ public class Category {
     @GeneratedValue(strategy =  GenerationType.IDENTITY)
     private Long id;
     private String name;
+
+    @Transient
+    private Set<Product> products = new HashSet<>();
 
     public Category() {
     }
@@ -50,4 +52,6 @@ public class Category {
     public int hashCode() {
         return Objects.hash(id, name);
     }
+
+
 }
