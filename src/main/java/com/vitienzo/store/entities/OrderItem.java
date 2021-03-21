@@ -1,5 +1,6 @@
 package com.vitienzo.store.entities;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.vitienzo.store.entities.pk.OrderItemPK;
 
 import javax.persistence.*;
@@ -25,7 +26,7 @@ public class OrderItem {
         this.price = price;
     }
 
-
+    @JsonIgnore
     public Order getOrder() {
         return id.getOrder();
     }
@@ -34,6 +35,7 @@ public class OrderItem {
         id.setOrder(order);
     }
 
+    @JsonIgnore
     public Product getProduct() {
         return id.getProduct();
     }
