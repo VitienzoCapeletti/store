@@ -5,7 +5,9 @@ import com.vitienzo.store.entities.enums.OrderStatus;
 
 import javax.persistence.*;
 import java.time.Instant;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 @Entity(name = "tb_order")
 public class Order {
@@ -23,6 +25,9 @@ public class Order {
     @ManyToOne
     @JoinColumn(name = "client_id")
     private User client;
+
+    @OneToMany(mappedBy = "id.order")
+    private Set<OrderItem> items = new HashSet<>();
 
     public Order() {
     }
@@ -58,6 +63,10 @@ public class Order {
         this.client = client;
     }
 
+    public Set<OrderItem> getItems(){
+        return items;
+    }
+
     public OrderStatus getOrderStatus() {
         return OrderStatus.valueOf(orderStatus) ;
     }
@@ -65,7 +74,6 @@ public class Order {
     public void setOrderStatus(OrderStatus orderStatus) {
         if (orderStatus != null) {
             this.orderStatus = orderStatus.getCode();
-
         }
     }
 
