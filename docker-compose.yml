@@ -1,0 +1,32 @@
+version: "3"
+services:
+  postgres:
+    container_name: dev_postgres
+    image: postgres
+    ports:
+      - 5432:5432
+    environment:
+      POSTGRES_PASSWORD: store
+      POSTGRES_USER: store
+    volumes:
+      - postgres_data_container:/data/db
+    networks:
+      - postgres-network
+
+  pgadmin:
+    image: dpage/pgadmin4
+    environment:
+      PGADMIN_DEFAULT_EMAIL: email@email.com
+      PGADMIN_DEFAULT_PASSWORD: store
+    ports:
+      - 7001:80
+    depends_on:
+      - postgres
+    networks:
+      - postgres-network
+
+networks:
+  postgres-network:
+    driver: bridge
+volumes:
+  postgres_data_container:
